@@ -10,26 +10,37 @@ permissions:
 
 jobs:
   test:
+    name: Unit tests and lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Check out
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
-      - run: npm test
-      - run: npm run lint
+      - name: Install
+        run: npm ci
+      - name: Unit and integration tests
+        run: npm test
+      - name: Lint (addons-linter)
+        run: npm run lint
 
   firefox:
-    # Real Firefox over WebDriver; the runner image ships Firefox, geckodriver comes with npm ci.
+    name: End-to-end in Firefox
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Check out
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
-      - run: firefox --version
-      - run: npm run test:e2e
+      - name: Install
+        run: npm ci
+      - name: Firefox version
+        run: firefox --version
+      - name: End-to-end test
+        run: npm run test:e2e

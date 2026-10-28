@@ -37,6 +37,9 @@ npm start          # launches Firefox with the extension loaded
 npm run build      # web-ext-artifacts/devgrab-<version>.zip, ready for addons.mozilla.org
 ```
 
+Each tagged version is also packaged by CI and attached to the matching
+[GitHub release](https://github.com/cunaz/devgrab/releases).
+
 Requires Firefox 140 or newer (142 on Android). Release builds of Firefox
 only keep signed extensions installed; for permanent use, sign the package
 through addons.mozilla.org (listed or self-distributed).
@@ -188,6 +191,10 @@ ground rules.
 Before publishing on addons.mozilla.org, change the extension ID in
 `manifest.json` (`browser_specific_settings.gecko.id`) if you prefer an
 e-mail-style ID.
+
+## Security
+
+Please report vulnerabilities privately, see [SECURITY.md](SECURITY.md).
 
 ## Ideas for later
 

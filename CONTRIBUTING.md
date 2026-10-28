@@ -61,7 +61,13 @@ and an entry in `CHANGELOG.md` under *unreleased*.
 Contributions are licensed under the Mozilla Public License 2.0 like the rest
 of the project. There is no contributor agreement to sign.
 
+## Releases
+
+Bump `version` in `manifest.json` and `package.json`, date the entry in
+`CHANGELOG.md`, commit, then tag it `vX.Y.Z` and push the tag. The release
+workflow runs the tests, builds the package and attaches it to a GitHub
+release. Signing for addons.mozilla.org stays a manual step.
+
 ## Security
 
-Please report vulnerabilities privately through GitHub's private vulnerability
-reporting (the repository's *Security* tab) rather than as a public issue.
+Please report vulnerabilities privately, see [SECURITY.md](SECURITY.md).
