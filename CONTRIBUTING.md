@@ -5,8 +5,11 @@ way is part of the goal.
 
 ## Ground rules
 
-- **No runtime dependencies.** The extension ships only the code in this
-  repository. A feature that needs a library should be discussed first.
+- **No dependencies.** The extension ships only the code in this repository,
+  and development needs nothing from npm either: the build uses the project's
+  own ZIP writer, the linter is Mozilla's `web-ext` fetched on demand, and the
+  end-to-end test uses the Firefox and geckodriver installed on the machine.
+  A feature that needs a library should be discussed first.
 - **No build step.** Plain ES modules that Firefox loads as they are. This
   keeps the published package identical to the source, which is also what
   reviewers at addons.mozilla.org see.
@@ -18,12 +21,11 @@ way is part of the goal.
 ## Development
 
 ```sh
-npm install        # web-ext (lint, package, launch) and geckodriver (end-to-end test)
 npm test           # unit and integration tests (Node ≥ 20.12, built-in test runner)
-npm run test:e2e   # real Firefox over WebDriver; needs Firefox on PATH or FIREFOX_BIN
-npm run lint       # addons-linter
+npm run test:e2e   # real Firefox over WebDriver; needs firefox and geckodriver on PATH
+npm run lint       # Mozilla's addons-linter via web-ext, pinned version, fetched on demand
 npm start          # Firefox with the extension loaded; reloads on file changes
-npm run build      # package in web-ext-artifacts/
+npm run build      # package in dist/
 ```
 
 The end-to-end test covers the download paths, but not the toolbar popup

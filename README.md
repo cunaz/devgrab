@@ -27,14 +27,13 @@ Development build (temporary add-on):
 1. Open `about:debugging#/runtime/this-firefox`.
 2. Click **Load Temporary Add-on…** and pick `manifest.json` from this folder.
 
-Or with [web-ext](https://extensionworkshop.com/documentation/develop/getting-started-with-web-ext/):
+Or from a checkout (Node 20 or newer, nothing to install):
 
 ```sh
 git clone https://github.com/cunaz/devgrab.git
 cd devgrab
-npm install
-npm start          # launches Firefox with the extension loaded
-npm run build      # web-ext-artifacts/devgrab-<version>.zip, ready for addons.mozilla.org
+npm start          # Mozilla's web-ext launches Firefox with the extension loaded
+npm run build      # dist/devgrab-<version>.zip, ready for addons.mozilla.org
 ```
 
 Each tagged version is also packaged by CI and attached to the matching
@@ -154,18 +153,24 @@ Treat it like any downloaded file: look at it in an editor rather than opening
 ## Development
 
 ```sh
-npm test            # unit and integration tests, Node's built-in runner, no dependencies
-npm run lint        # addons-linter via web-ext
+npm test            # unit and integration tests, Node's built-in runner
+npm run lint        # Mozilla's addons-linter, fetched on demand through web-ext
+npm run build       # package the extension with the project's own ZIP writer
 npm run test:e2e    # the real extension in a real Firefox, see below
 ```
+
+The project has no dependencies, not even for development: `npm install`
+installs nothing. The linter is Mozilla's `web-ext`, run through `npx` at a
+pinned version; the package is built by `scripts/build.mjs` with the same
+ZIP writer the extension uses, so a build of a given commit is reproducible.
 
 The end-to-end test (`test/e2e/`) drives a headless Firefox over WebDriver:
 it installs the extension, scans a local test site with two origins, a
 service worker and a cookie-protected file, downloads the ZIP through the
 site-access prompt, saves files individually and checks the results on disk.
-It needs Firefox 140 or newer on `PATH` as `firefox` (or `FIREFOX_BIN` pointing
-to the binary) and `geckodriver`, which `npm install` provides. Set
-`E2E_HEADED=1` to watch it run.
+It needs Firefox 140 or newer and [geckodriver](https://github.com/mozilla/geckodriver/releases)
+on `PATH` (or `FIREFOX_BIN` and `GECKODRIVER_BIN` pointing to them); GitHub's
+runners have both. Set `E2E_HEADED=1` to watch it run.
 
 ```
 manifest.json
@@ -179,12 +184,12 @@ src/lib/dump.js          fetch pool, source maps, manifest, archive
 src/popup/               UI
 _locales/                en, de
 test/                    node --test suites, test/e2e for the Firefox run
+scripts/build.mjs        packaging
 ```
 
 The core modules use only standard web APIs, so they run unchanged in Node
 (tests) and in the extension. There is deliberately no bundler, transpiler or
-runtime dependency; the development dependencies are `web-ext` and
-`geckodriver` (for the end-to-end test only). See
+dependency of any kind. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for the manual test checklist and the
 ground rules.
 

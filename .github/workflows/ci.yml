@@ -19,9 +19,6 @@ jobs:
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
-          cache: npm
-      - name: Install
-        run: npm ci
       - name: Unit and integration tests
         run: npm test
       - name: Lint (addons-linter)
@@ -37,10 +34,7 @@ jobs:
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
-          cache: npm
-      - name: Install
-        run: npm ci
-      - name: Firefox version
-        run: firefox --version
+      - name: Tool versions (both come with the runner image)
+        run: firefox --version && geckodriver --version | head -1
       - name: End-to-end test
         run: npm run test:e2e
