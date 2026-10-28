@@ -1,0 +1,45 @@
+{
+  "name": "devgrab",
+  "version": "0.1.0",
+  "description": "Firefox extension: download the scripts, stylesheets, source maps and other developer-relevant files of the current page as a ZIP archive.",
+  "private": true,
+  "type": "module",
+  "license": "MPL-2.0",
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "test:e2e": "node test/e2e/run.mjs",
+    "lint": "web-ext lint",
+    "build": "web-ext build --overwrite-dest",
+    "start": "web-ext run"
+  },
+  "devDependencies": {
+    "geckodriver": "^8.0.0",
+    "web-ext": "^10.8.0"
+  },
+  "webExt": {
+    "sourceDir": ".",
+    "artifactsDir": "web-ext-artifacts",
+    "ignoreFiles": [
+      "test",
+      "node_modules",
+      "web-ext-artifacts",
+      "package.json",
+      "package-lock.json",
+      "README.md",
+      "CHANGELOG.md",
+      ".editorconfig",
+      ".gitignore"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cunaz/devgrab.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cunaz/devgrab/issues"
+  },
+  "homepage": "https://github.com/cunaz/devgrab#readme"
+}

@@ -1,0 +1,66 @@
+<!doctype html>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+     License, v. 2.0. If a copy of the MPL was not distributed with this
+     file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="color-scheme" content="light dark">
+  <title>DevGrab</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="header">
+    <div class="title-row">
+      <h1 data-i18n="extName">DevGrab</h1>
+      <button id="rescan" class="icon-button" type="button" data-i18n-title="rescan" data-i18n-label="rescan">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.75.75 0 0 1 1.5 0A7 7 0 1 1 8 1a6.96 6.96 0 0 1 4.75 1.86L14 1.6V6h-4.4l1.82-1.82A5.47 5.47 0 0 0 8 2.5z"/></svg>
+      </button>
+    </div>
+    <div class="page-info">
+      <span id="page-host" class="page-host"></span>
+      <span id="summary" class="summary"></span>
+    </div>
+  </header>
+
+  <main id="main">
+    <p id="message" class="message" hidden></p>
+    <p id="hint-buffer" class="hint" hidden data-i18n="hintTimingBuffer"></p>
+    <section id="categories" class="categories"></section>
+    <section id="options" class="options" hidden>
+      <h2 data-i18n="optionsTitle">Options</h2>
+      <label class="option">
+        <input type="checkbox" id="opt-sourcemaps">
+        <span data-i18n="optFetchSourceMaps"></span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="opt-extract">
+        <span data-i18n="optExtractSources"></span>
+      </label>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div id="status" class="status" hidden>
+      <div id="progress" class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+      <p id="status-text" class="status-text"></p>
+    </div>
+    <div class="actions">
+      <button id="download-zip" class="primary" type="button" data-i18n="downloadZip" disabled></button>
+      <button id="save-individually" type="button" data-i18n="saveIndividually" data-i18n-title="saveIndividuallyHint" disabled></button>
+      <button id="copy-urls" class="link" type="button" data-i18n="copyUrls" disabled></button>
+    </div>
+  </footer>
+
+  <template id="icon-chevron">
+    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path fill="currentColor" d="M3.47 1.47a.75.75 0 0 1 1.06 0l4 4a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 1 1-1.06-1.06L6.94 6 3.47 2.53a.75.75 0 0 1 0-1.06z"/></svg>
+  </template>
+  <template id="icon-info">
+    <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm0 1.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11zM8 7a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 7zm0-2.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+  </template>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
