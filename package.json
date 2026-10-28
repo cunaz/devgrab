@@ -1,6 +1,6 @@
 {
   "name": "devgrab",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Firefox extension: download the scripts, stylesheets, source maps and other developer-relevant files of the current page as a ZIP archive.",
   "private": true,
   "type": "module",

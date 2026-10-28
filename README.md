@@ -39,7 +39,8 @@ npm run build      # dist/devgrab-<version>.zip, ready for addons.mozilla.org
 Each tagged version is also packaged by CI and attached to the matching
 [GitHub release](https://github.com/cunaz/devgrab/releases).
 
-Requires Firefox 140 or newer (142 on Android). Release builds of Firefox
+Requires Firefox 142 or newer; Firefox for Android is not declared as
+supported yet. Release builds of Firefox
 only keep signed extensions installed; for permanent use, sign the package
 through addons.mozilla.org (listed or self-distributed).
 
@@ -168,7 +169,7 @@ The end-to-end test (`test/e2e/`) drives a headless Firefox over WebDriver:
 it installs the extension, scans a local test site with two origins, a
 service worker and a cookie-protected file, downloads the ZIP through the
 site-access prompt, saves files individually and checks the results on disk.
-It needs Firefox 140 or newer and [geckodriver](https://github.com/mozilla/geckodriver/releases)
+It needs Firefox 142 or newer and [geckodriver](https://github.com/mozilla/geckodriver/releases)
 on `PATH` (or `FIREFOX_BIN` and `GECKODRIVER_BIN` pointing to them); GitHub's
 runners have both. Set `E2E_HEADED=1` to watch it run.
 

@@ -5,7 +5,7 @@
 /**
  * End-to-end test in a real Firefox, driven over WebDriver (geckodriver).
  *
- * Requirements: Firefox 140 or newer (set FIREFOX_BIN when it is not on PATH
+ * Requirements: Firefox 142 or newer (set FIREFOX_BIN when it is not on PATH
  * as "firefox") and geckodriver (devDependency). Run with: npm run test:e2e
  *
  * The run starts a local test site (two origins, a service worker, a
