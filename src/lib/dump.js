@@ -125,7 +125,7 @@ export async function createDump(job, { fetchImpl = globalThis.fetch, onProgress
   const skipped = [];
   const sources = [];
   const seenUrls = new Set();
-  const sourceContents = new Map(); // archive path → content; shared sources appear in many maps
+  const sourceContents = new Map(); // archive path → content; a source shared by several maps is stored once
   const queue = [];
   let totalBytes = 0;
   let done = 0;
@@ -167,7 +167,8 @@ export async function createDump(job, { fetchImpl = globalThis.fetch, onProgress
         continue;
       }
       const desired = sourcePathToArchivePath(source, sourceRoot);
-      if (sourceContents.get(desired) === content) {
+      const known = sourceContents.get(desired);
+      if (known === content) {
         duplicates++;
         continue;
       }
@@ -176,9 +177,10 @@ export async function createDump(job, { fetchImpl = globalThis.fetch, onProgress
         mapRecord.sourcesError = 'total size limit reached';
         break;
       }
+      // Claim the path before the first await: another worker may be extracting the same shared source right now.
+      if (known === undefined) sourceContents.set(desired, content);
       const path = allocator.allocate(desired);
       await store(path, data);
-      sourceContents.set(path, content);
       sources.push({ path, source, map: mapRecord.path });
       extracted++;
     }
